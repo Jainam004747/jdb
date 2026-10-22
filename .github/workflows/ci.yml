@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install SQLite (the reference for differential tests)
+        run: sudo apt-get update && sudo apt-get install -y sqlite3 bc
+      - name: Build
+        run: make
+      - name: Unit, SQL and crash-recovery tests
+        run: make test
+      - name: Same tests under AddressSanitizer + UBSan
+        run: make asan
+      - name: Benchmark (informational)
+        run: make && ./tests/bench.sh 50000
