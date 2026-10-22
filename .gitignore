@@ -1,0 +1,6 @@
+jdb
+*.o
+tests/test_btree
+tests/out/
+*.db
+*.db-wal
