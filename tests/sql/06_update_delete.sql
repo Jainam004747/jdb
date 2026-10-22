@@ -1,0 +1,15 @@
+CREATE TABLE stock (id INTEGER PRIMARY KEY, item TEXT, qty INTEGER);
+INSERT INTO stock (item, qty) VALUES ('cups', 100), ('lids', 80), ('sleeves', 0), ('straws', 500);
+UPDATE stock SET qty = qty - 30 WHERE qty > 50;
+SELECT * FROM stock;
+UPDATE stock SET item = UPPER(item), qty = qty * 2 WHERE id = 3;
+SELECT * FROM stock;
+UPDATE stock SET qty = 0;
+SELECT SUM(qty) FROM stock;
+DELETE FROM stock WHERE id = 2;
+DELETE FROM stock WHERE id > 100;
+SELECT id, item FROM stock;
+DELETE FROM stock;
+SELECT COUNT(*) FROM stock;
+INSERT INTO stock (item, qty) VALUES ('new', 1);
+SELECT * FROM stock;

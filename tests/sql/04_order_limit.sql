@@ -1,0 +1,11 @@
+CREATE TABLE p (id INTEGER PRIMARY KEY, name TEXT, score INTEGER, team TEXT);
+INSERT INTO p VALUES (1, 'ann', 40, 'red'), (2, 'bob', 95, 'blue'), (3, 'cid', 70, 'red');
+INSERT INTO p VALUES (4, 'dee', 95, 'green'), (5, 'eve', 10, 'blue'), (6, 'fay', NULL, 'red');
+SELECT name, score FROM p ORDER BY score DESC, name;
+SELECT name FROM p ORDER BY score;
+SELECT name FROM p ORDER BY name DESC LIMIT 3;
+SELECT name FROM p ORDER BY id LIMIT 2 OFFSET 3;
+SELECT name, score * 2 AS doubled FROM p ORDER BY doubled DESC, name LIMIT 2;
+SELECT name, team FROM p ORDER BY 2, 1;
+SELECT name FROM p WHERE team = 'red' ORDER BY LENGTH(name) DESC, name;
+SELECT id FROM p LIMIT 0;

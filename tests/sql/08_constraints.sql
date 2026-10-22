@@ -1,0 +1,13 @@
+CREATE TABLE u (id INTEGER PRIMARY KEY, email TEXT NOT NULL, age INTEGER);
+INSERT INTO u VALUES (1, 'a@x.com', 30);
+INSERT INTO u VALUES (1, 'dup@x.com', 40);
+INSERT INTO u (id, age) VALUES (2, 50);
+INSERT INTO u VALUES (2, 'b@x.com', 20), (2, 'c@x.com', 21);
+INSERT INTO u VALUES (3, 'c@x.com', '25');
+INSERT INTO u VALUES (4, 404, 26);
+SELECT id, email, age, TYPEOF(age), TYPEOF(email) FROM u;
+SELECT * FROM nope;
+SELECT missing_col FROM u;
+CREATE TABLE u (id INTEGER PRIMARY KEY);
+CREATE TABLE IF NOT EXISTS u (id INTEGER PRIMARY KEY);
+SELECT COUNT(*) FROM u;

@@ -1,0 +1,12 @@
+CREATE TABLE sales (id INTEGER PRIMARY KEY, store TEXT, item TEXT, qty INTEGER);
+INSERT INTO sales (store, item, qty) VALUES ('sudbury', 'coffee', 3), ('sudbury', 'donut', 12);
+INSERT INTO sales (store, item, qty) VALUES ('toronto', 'coffee', 7), ('toronto', 'coffee', 2);
+INSERT INTO sales (store, item, qty) VALUES ('ottawa', 'tea', NULL), ('sudbury', 'coffee', 5);
+SELECT COUNT(*), COUNT(qty), SUM(qty), MIN(qty), MAX(qty) FROM sales;
+SELECT store, COUNT(*), SUM(qty) FROM sales GROUP BY store;
+SELECT store, item, SUM(qty) FROM sales GROUP BY store, item;
+SELECT item, SUM(qty) AS total FROM sales GROUP BY item ORDER BY total DESC;
+SELECT store, MAX(qty) FROM sales WHERE item = 'coffee' GROUP BY store ORDER BY store DESC;
+SELECT COUNT(*), SUM(qty) FROM sales WHERE qty > 100;
+SELECT store, COUNT(*) FROM sales WHERE qty > 100 GROUP BY store;
+SELECT SUM(qty) / COUNT(qty) FROM sales;
