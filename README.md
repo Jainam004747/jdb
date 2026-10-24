@@ -98,5 +98,3 @@ Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · design decisions: [docs
 - **Atomicity and durability come from ordering writes.** WAL first, fsync, then the database file. Crash tests at each point prove it.
 - **Split strategy matters.** A 50/50 split with sequential ids left every page half empty. Measuring file size found it, and an append-optimised split halved the file.
 - **Iterators keep memory flat.** Only `ORDER BY` and `GROUP BY` need to materialise rows.
-
-Developed with AI assistance (Claude) as a learning project.
