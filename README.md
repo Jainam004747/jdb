@@ -60,6 +60,50 @@ make test                 # unit + SQLite differential + crash-recovery tests
 ./tests/bench.sh 100000   # timing comparison with SQLite
 ```
 
+## Output
+
+```text
+$ ./jdb -table shop.db -c "SELECT category, COUNT(*) AS items, SUM(price) AS total FROM menu GROUP BY category ORDER BY total DESC;"
+┌──────────┬───────┬───────┐
+│ category │ items │ total │
+├──────────┼───────┼───────┤
+│ food     │     2 │   378 │
+│ drink    │     2 │   358 │
+└──────────┴───────┴───────┘
+(2 rows)
+
+$ ./jdb -table shop.db -c "SELECT * FROM menu WHERE price < 200 ORDER BY price;"
+┌────┬────────┬───────┬──────────┐
+│ id │ name   │ price │ category │
+├────┼────────┼───────┼──────────┤
+│  3 │ donut  │   129 │ food     │
+│  2 │ tea    │   159 │ drink    │
+│  1 │ coffee │   199 │ drink    │
+└────┴────────┴───────┴──────────┘
+(3 rows)
+
+$ ./jdb shop.db -c "EXPLAIN SELECT name FROM menu WHERE id BETWEEN 2 AND 3;"
+SEARCH menu USING INTEGER PRIMARY KEY (rowid 2..3)
+FILTER
+```
+
+Test run, including the crash tests:
+
+```text
+$ make test
+test_btree: all checks passed
+SQL tests: 12 passed, 0 failed
+  ok: process died before commit
+  ok: WAL left behind
+  ok: partial transaction rolled back
+  ok: B+tree intact
+  ok: process died after commit point
+  ok: committed transaction recovered from the WAL
+  ok: B+tree intact
+  ok: torn transaction ignored
+crash tests: all passed
+```
+
 ## Architecture
 
 ```
